@@ -32,10 +32,15 @@ const SOLUTION = "renderSolution";
 const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const inputs = [];
+    if (props.width && props.height) {
+      inputs.push(props.width);
+      inputs.push(props.height);
+    }
     this.state = {
-      inputs: [345, 150],
+      inputs,
       result: 0,
       mode: 0
     };
