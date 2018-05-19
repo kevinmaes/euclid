@@ -3,20 +3,11 @@ import React, { Component } from "react";
 import "./index.css";
 
 import Step from "./Step";
+import descending from "./utils/descending";
+import { gcd, gcdSteps } from "./utils/gcd";
 
-const desc = fn => (...args) => {
-  if (args[0] < args[1]) {
-    args.reverse();
-  }
-  return fn(...args);
-};
-
-const gcd = (a, b) => {
-  const rem = a % b;
-  return rem === 0 ? b : gcd(b, rem);
-};
-
-const calcGCD = desc(gcd);
+const calcGCD = descending(gcd);
+const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
 const setInputs = inputs => () => ({ inputs });
