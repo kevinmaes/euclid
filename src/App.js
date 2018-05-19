@@ -12,35 +12,29 @@ const calcGCDSteps = descending(gcdSteps);
 // Functional setState for input values.
 const setInputs = inputs => () => ({ inputs });
 
-// Functional setState for result.
-const setResult = result => () => ({ result });
-
 const VISIBLE_CHILD_MAX = 1000;
 
-const PROBLEM = "renderProblem";
-const MEASUREMENT = "renderMeasurement";
-const SOLUTION = "renderSolution";
-const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
+// const PROBLEM = "renderProblem";
+// const MEASUREMENT = "renderMeasurement";
+// const SOLUTION = "renderSolution";
+// const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const { width, height } = props;
     const inputs = [];
-    if (props.width && props.height) {
-      inputs.push(props.width);
-      inputs.push(props.height);
+    if (width && height) {
+      inputs.push(width);
+      inputs.push(height);
     }
+
+    const steps = calcGCDSteps(width, height);
     this.state = {
       inputs,
-      result: 0,
-      mode: 0
+      steps,
+      currentStepIndex: 0,
     };
-  }
-
-  componentDidMount() {
-    const { inputs } = this.state;
-    const result = this.calculateResult(inputs);
-    this.setState(setResult(result));
   }
 
   onInputChange = event => {
@@ -50,10 +44,11 @@ class App extends Component {
     const { inputs } = this.state;
     const newInputs = [...inputs];
     newInputs[index] = value || 0;
-    const result = this.calculateResult(newInputs);
 
     this.setState(setInputs(newInputs));
-    this.setState(setResult(result));
+    const steps = calcGCDSteps(...newInputs);
+    this.setState({ steps });
+    this.setState({ currentStepIndex: 0 });
   };
 
   calculateResult = inputs =>
@@ -69,11 +64,15 @@ class App extends Component {
   hasBothInputs = inputs => inputs && inputs[0] && inputs[1];
 
   onClick = () => {
-    const { mode } = this.state;
-    if (mode < renderers.length - 1) {
-      return this.setState({ mode: mode + 1 });
-    }
-    return this.setState({ mode: 0 });
+    this.setState(({ steps, currentStepIndex }) => {
+      const newCurrentStepIndex = currentStepIndex < steps.length - 1
+        ? currentStepIndex + 1
+        : 0;
+
+      return {
+        currentStepIndex: newCurrentStepIndex,
+      }
+    })
   };
 
   renderProblem = inputs => <Step inputs={inputs} />;
@@ -104,16 +103,7 @@ class App extends Component {
   };
 
   render() {
-    const { inputs, result, mode } = this.state;
-
-    const numChildren = inputs[0] / result * (inputs[1] / result);
-    const children = [];
-    if (this.hasBothInputs(inputs) && Number.isFinite(numChildren)) {
-      children.length = numChildren;
-      children.fill();
-    }
-
-    const renderFn = this[renderers[mode]];
+    const { inputs, steps, currentStepIndex } = this.state;
 
     return (
       <div>
@@ -127,9 +117,11 @@ class App extends Component {
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
         <div>
-          The GCD is {result} ({children.length} squares)
+          {/* The GCD is {result} ({children.length} squares) */}
+          The current step is {currentStepIndex}
         </div>
-        <div onClick={this.onClick}>{renderFn(inputs, children)}</div>
+        <button onClick={this.onClick}></button>
+        {/* <div onClick={this.onClick}>{renderFn(inputs, children)}</div> */}
       </div>
     );
   }

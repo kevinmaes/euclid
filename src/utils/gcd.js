@@ -11,8 +11,10 @@ export const gcdSteps = (a, b, steps = []) => {
 
   if (rem === 0) {
     step.gcd = b;
+    // console.log('steps final', steps);
     return steps;
   }
 
+  // console.log('steps', steps);
   return gcdSteps(b, rem, steps);
 };
