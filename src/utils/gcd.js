@@ -6,10 +6,12 @@ export const gcd = (a, b) => {
 export const gcdSteps = (a, b, steps = []) => {
   const rem = a % b;
 
+  const step = { a, b, rem, gcd: null };
+  steps.push(step);
+
   if (rem === 0) {
-    steps.push({
-      gcd: b
-    });
+    step.gcd = b;
+    return steps;
   }
 
   return gcdSteps(b, rem, steps);
