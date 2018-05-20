@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./index.css";
+import './index.css';
 
-import Step from "./Step";
-import descending from "./utils/descending";
-import { gcd, gcdSteps } from "./utils/gcd";
+import Step from './Step';
+import descending from './utils/descending';
+import { gcd, gcdSteps } from './utils/gcd';
 
 const calcGCD = descending(gcd);
 const calcGCDSteps = descending(gcdSteps);
@@ -13,11 +13,8 @@ const calcGCDSteps = descending(gcdSteps);
 const setInputs = inputs => () => ({ inputs });
 
 const VISIBLE_CHILD_MAX = 1000;
-
-// const PROBLEM = "renderProblem";
-// const MEASUREMENT = "renderMeasurement";
-// const SOLUTION = "renderSolution";
-// const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
+const LANDSCAPE = 'row';
+const PORTRAIT = 'column';
 
 class App extends Component {
   constructor(props) {
@@ -57,7 +54,7 @@ class App extends Component {
   inputsToStyle = inputs => {
     return {
       width: inputs[0],
-      height: inputs[1]
+      height: inputs[1],
     };
   };
 
@@ -65,45 +62,79 @@ class App extends Component {
 
   onClick = () => {
     this.setState(({ steps, currentStepIndex }) => {
-      const newCurrentStepIndex = currentStepIndex < steps.length - 1
-        ? currentStepIndex + 1
-        : 0;
+      const newCurrentStepIndex =
+        currentStepIndex < steps.length - 1 ? currentStepIndex + 1 : 0;
 
       return {
         currentStepIndex: newCurrentStepIndex,
-      }
-    })
+      };
+    });
   };
 
-  renderProblem = inputs => <Step inputs={inputs} />;
+  // renderProblem = inputs => <Step inputs={inputs} />;
 
-  renderMeasurement = inputs => <Step inputs={inputs} showChildren />;
+  // renderMeasurement = inputs => <Step inputs={inputs} showChildren />;
 
-  renderSolution = (inputs, children) => {
-    const { result } = this.state;
+  // renderSolution = (inputs, children) => {
+  //   const { result } = this.state;
 
+  //   return (
+  //     <div
+  //       className="rectangle"
+  //       style={{
+  //         width: inputs[0],
+  //         height: inputs[1]
+  //       }}
+  //     >
+  //       {children.length <= VISIBLE_CHILD_MAX &&
+  //         children.map((child, i) => (
+  //           <div
+  //             className="child"
+  //             key={i}
+  //             style={{ width: result, height: result }}
+  //           />
+  //         ))}
+  //     </div>
+  //   );
+  // };
+
+  renderStep = (steps = [], index) => {
+    if (index > steps.length - 1) {
+      return null;
+    }
+
+    const step = steps[index];
+
+    const { lg, sm, size, divisor, remainder, gcd } = step;
+    const orientation = (index + 2) % 2 ? PORTRAIT : LANDSCAPE;
+    const height = orientation === LANDSCAPE ? size : lg;
+    const width = orientation === LANDSCAPE ? lg : size;
+
+    console.log('renderStep', step);
     return (
       <div
-        className="rectangle"
-        style={{
-          width: inputs[0],
-          height: inputs[1]
-        }}
+      style={{
+        display: 'flex',
+        flexDirection: orientation,
+        boxSizing: 'border-box',
+        width,
+        height,
+      }}
+
       >
-        {children.length <= VISIBLE_CHILD_MAX &&
-          children.map((child, i) => (
-            <div
-              className="child"
-              key={i}
-              style={{ width: result, height: result }}
-            />
-          ))}
+      <Step
+        key={index}
+        step={step}
+        orientation={(index + 2) % 2 ? PORTRAIT : LANDSCAPE}
+      >
+      </Step>
+      {this.renderStep(steps, index + 1)}
       </div>
     );
   };
 
   render() {
-    const { inputs, steps, currentStepIndex } = this.state;
+    const { inputs, steps = [], currentStepIndex } = this.state;
 
     return (
       <div>
@@ -120,7 +151,23 @@ class App extends Component {
           {/* The GCD is {result} ({children.length} squares) */}
           The current step is {currentStepIndex}
         </div>
-        <button onClick={this.onClick}></button>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: 200,
+            left: 0,
+            width: inputs[0],
+            height: inputs[1],
+            border: '1px solid gray',
+            display: 'flex',
+            flexDirection: LANDSCAPE,
+            boxSizing: 'border-box',
+          }}
+        >
+          {this.renderStep(steps, currentStepIndex)}
+        </div>
+        <button onClick={this.onClick} />
         {/* <div onClick={this.onClick}>{renderFn(inputs, children)}</div> */}
       </div>
     );

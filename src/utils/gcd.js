@@ -1,20 +1,35 @@
-export const gcd = (a, b) => {
-  const rem = a % b;
-  return rem === 0 ? b : gcd(b, rem);
+export const gcd = (lg, sm) => {
+  const rem = lg % sm;
+  return rem === 0 ? sm : gcd(sm, rem);
 };
 
-export const gcdSteps = (a, b, steps = []) => {
-  const rem = a % b;
+const modulo = (lg, sm) => {
+  const divisor = Math.floor(lg / sm);
+  const remainder = lg % sm;
+  return {
+    divisor, remainder,
+  }
+}
 
-  const step = { a, b, rem, gcd: null };
+export const gcdSteps = (lg, sm, steps = []) => {
+  const { divisor, remainder } = modulo(lg, sm)
+
+  const step = {
+    lg,
+    sm,
+    size: sm,
+    divisor,
+    remainder,
+    gcd: null
+  };
   steps.push(step);
 
-  if (rem === 0) {
-    step.gcd = b;
+  if (remainder === 0) {
+    step.gcd = sm;
     // console.log('steps final', steps);
     return steps;
   }
 
   // console.log('steps', steps);
-  return gcdSteps(b, rem, steps);
+  return gcdSteps(sm, remainder, steps);
 };
