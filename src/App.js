@@ -30,6 +30,7 @@ class App extends Component {
       inputs,
       steps,
       currentStepIndex: 0,
+      showGrid: true,
     };
   }
 
@@ -110,7 +111,7 @@ class App extends Component {
   };
 
   render() {
-    const { inputs, steps, currentStepIndex } = this.state;
+    const { inputs, steps, currentStepIndex, showGrid } = this.state;
     const width = inputs[0];
     const height = inputs[1];
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
@@ -120,6 +121,7 @@ class App extends Component {
       gcd = steps[steps.length - 1].gcd;
       totalSquares = inputs[0] * inputs[1] / gcd;
     }
+
     return (
       <div>
         <h1>Euclidean Algorithm</h1>
@@ -135,21 +137,24 @@ class App extends Component {
           The GCD is {gcd} ({totalSquares} squares) The current step is{' '}
           {currentStepIndex}/{steps.length}
         </div>
-        <div
-          style={{
-            width: inputs[0],
-            height: inputs[1],
-            border: '1px solid gray',
-            display: 'flex',
-            flexDirection: orientation,
-            boxSizing: 'border-box',
-            cursor: 'pointer',
-          }}
-          onClick={this.onClick}
-        >
-          {steps.length &&
-            this.renderStep(steps, 0, orientation, currentStepIndex)}
-        </div>
+        {this.hasBothInputs(inputs) ? (
+          <div
+            style={{
+              width: inputs[0],
+              height: inputs[1],
+              border: '1px solid gray',
+              display: 'flex',
+              flexDirection: orientation,
+              boxSizing: 'border-box',
+              cursor: 'pointer',
+            }}
+            onClick={this.onClick}
+          >
+            {this.renderStep(steps, 0, orientation, currentStepIndex)}
+          </div>
+        ) : (
+          <div>Both width and height are required!</div>
+        )}
       </div>
     );
   }
