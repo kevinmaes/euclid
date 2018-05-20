@@ -1,8 +1,5 @@
 import React from 'react';
 
-const LANDSCAPE = 'row';
-const PORTRAIT = 'column';
-
 export default props => {
   const { lg, sm, size, divisor, remainder, gcd } = props.step;
   const children = new Array(divisor);

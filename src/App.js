@@ -26,7 +26,7 @@ class App extends Component {
       inputs.push(height);
     }
 
-    const steps = calcGCDSteps(width, height);
+    const steps = this.getSteps(inputs);
     this.state = {
       inputs,
       steps,
@@ -43,13 +43,13 @@ class App extends Component {
     newInputs[index] = value || 0;
 
     this.setState(setInputs(newInputs));
-    const steps = calcGCDSteps(...newInputs);
+    const steps = this.getSteps(newInputs);
     this.setState({ steps });
     this.setState({ currentStepIndex: 0 });
   };
 
-  calculateResult = inputs =>
-    this.hasBothInputs(inputs) ? calcGCD(...inputs) : 0;
+  getSteps = inputs =>
+    this.hasBothInputs(inputs) ? calcGCDSteps(...inputs) : [];
 
   inputsToStyle = inputs => {
     return {
@@ -63,7 +63,7 @@ class App extends Component {
   onClick = () => {
     this.setState(({ steps, currentStepIndex }) => {
       const newCurrentStepIndex =
-        currentStepIndex < steps.length - 1 ? currentStepIndex + 1 : 0;
+      steps.length && currentStepIndex <= steps.length - 1 ? currentStepIndex + 1 : 0;
 
       return {
         currentStepIndex: newCurrentStepIndex,
@@ -71,71 +71,55 @@ class App extends Component {
     });
   };
 
-  // renderProblem = inputs => <Step inputs={inputs} />;
+  flipOrientation = orientation =>
+    orientation === LANDSCAPE ? PORTRAIT : LANDSCAPE;
 
-  // renderMeasurement = inputs => <Step inputs={inputs} showChildren />;
-
-  // renderSolution = (inputs, children) => {
-  //   const { result } = this.state;
-
-  //   return (
-  //     <div
-  //       className="rectangle"
-  //       style={{
-  //         width: inputs[0],
-  //         height: inputs[1]
-  //       }}
-  //     >
-  //       {children.length <= VISIBLE_CHILD_MAX &&
-  //         children.map((child, i) => (
-  //           <div
-  //             className="child"
-  //             key={i}
-  //             style={{ width: result, height: result }}
-  //           />
-  //         ))}
-  //     </div>
-  //   );
-  // };
-
-  renderStep = (steps = [], index) => {
+  renderStep = (steps = [], index, orientation, currentStepIndex) => {
     if (index > steps.length - 1) {
       return null;
     }
 
-    const step = steps[index];
+    if (currentStepIndex <= index) {
+      return null;
+    }
 
-    const { lg, sm, size, divisor, remainder, gcd } = step;
-    const orientation = (index + 2) % 2 ? PORTRAIT : LANDSCAPE;
+    const step = steps[index];
+    const { lg, size } = step;
     const height = orientation === LANDSCAPE ? size : lg;
     const width = orientation === LANDSCAPE ? lg : size;
-
-    console.log('renderStep', step);
     return (
       <div
-      style={{
-        display: 'flex',
-        flexDirection: orientation,
-        boxSizing: 'border-box',
-        width,
-        height,
-      }}
-
+        style={{
+          display: 'flex',
+          flexDirection: orientation,
+          boxSizing: 'border-box',
+          width,
+          height,
+        }}
       >
-      <Step
-        key={index}
-        step={step}
-        orientation={(index + 2) % 2 ? PORTRAIT : LANDSCAPE}
-      >
-      </Step>
-      {this.renderStep(steps, index + 1)}
+        <Step step={step} orientation={orientation} style={{}} />
+        {this.renderStep(
+          steps,
+          index + 1,
+          this.flipOrientation(orientation),
+          currentStepIndex
+        )}
       </div>
     );
   };
 
   render() {
-    const { inputs, steps = [], currentStepIndex } = this.state;
-
+    const { inputs, steps, currentStepIndex } = this.state;
+    console.log('currentStepIndex', currentStepIndex);
+    const width = inputs[0];
+    const height = inputs[1];
+    const orientation = width > height ? LANDSCAPE : PORTRAIT;
+    let gcd = 0;
+    let totalSquares = 0;
+    if (steps.length) {
+      gcd = steps[steps.length - 1].gcd;
+      totalSquares = inputs[0] * inputs[1] / gcd;
+    }
     return (
       <div>
         <h1>Euclidean Algorithm</h1>
@@ -148,10 +132,9 @@ class App extends Component {
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
         <div>
-          {/* The GCD is {result} ({children.length} squares) */}
-          The current step is {currentStepIndex}
+          The GCD is {gcd} ({totalSquares} squares) The current step is{' '}
+          {currentStepIndex}/{steps.length}
         </div>
-
         <div
           style={{
             position: 'absolute',
@@ -161,14 +144,14 @@ class App extends Component {
             height: inputs[1],
             border: '1px solid gray',
             display: 'flex',
-            flexDirection: LANDSCAPE,
+            flexDirection: orientation,
             boxSizing: 'border-box',
+            cursor: 'pointer',
           }}
+          onClick={this.onClick}
         >
-          {this.renderStep(steps, currentStepIndex)}
+          {steps.length && this.renderStep(steps, 0, orientation, currentStepIndex)}
         </div>
-        <button onClick={this.onClick} />
-        {/* <div onClick={this.onClick}>{renderFn(inputs, children)}</div> */}
       </div>
     );
   }
