@@ -6,7 +6,6 @@ import Step from './Step';
 import descending from './utils/descending';
 import { gcd, gcdSteps } from './utils/gcd';
 
-const calcGCD = descending(gcd);
 const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
@@ -63,7 +62,9 @@ class App extends Component {
   onClick = () => {
     this.setState(({ steps, currentStepIndex }) => {
       const newCurrentStepIndex =
-      steps.length && currentStepIndex <= steps.length - 1 ? currentStepIndex + 1 : 0;
+        steps.length && currentStepIndex <= steps.length - 1
+          ? currentStepIndex + 1
+          : 0;
 
       return {
         currentStepIndex: newCurrentStepIndex,
@@ -110,7 +111,6 @@ class App extends Component {
 
   render() {
     const { inputs, steps, currentStepIndex } = this.state;
-    console.log('currentStepIndex', currentStepIndex);
     const width = inputs[0];
     const height = inputs[1];
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
@@ -150,7 +150,8 @@ class App extends Component {
           }}
           onClick={this.onClick}
         >
-          {steps.length && this.renderStep(steps, 0, orientation, currentStepIndex)}
+          {steps.length &&
+            this.renderStep(steps, 0, orientation, currentStepIndex)}
         </div>
       </div>
     );

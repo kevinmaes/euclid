@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default props => {
-  const { lg, sm, size, divisor, remainder, gcd } = props.step;
+  const { size, divisor } = props.step;
   const children = new Array(divisor);
   children.fill({});
 
