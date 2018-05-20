@@ -137,9 +137,6 @@ class App extends Component {
         </div>
         <div
           style={{
-            position: 'absolute',
-            top: 200,
-            left: 0,
             width: inputs[0],
             height: inputs[1],
             border: '1px solid gray',
