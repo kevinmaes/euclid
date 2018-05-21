@@ -30,7 +30,7 @@ class App extends Component {
       inputs,
       steps,
       currentStepIndex: 0,
-      showGrid: true,
+      gridView: false,
     };
   }
 
@@ -73,6 +73,10 @@ class App extends Component {
     });
   };
 
+  toggleGridView = event => {
+    this.setState(({ gridView }) => ({ gridView: !gridView }));
+  };
+
   flipOrientation = orientation =>
     orientation === LANDSCAPE ? PORTRAIT : LANDSCAPE;
 
@@ -110,8 +114,24 @@ class App extends Component {
     );
   };
 
+  renderGrid = (totalSquares, gcd) => {
+    const children = new Array(totalSquares);
+    children.fill({});
+    return children.map((child, i) => (
+      <div
+        key={i}
+        style={{
+          width: gcd,
+          height: gcd,
+          border: '1px dotted green',
+          boxSizing: 'border-box',
+        }}
+      />
+    ));
+  };
+
   render() {
-    const { inputs, steps, currentStepIndex, showGrid } = this.state;
+    const { inputs, steps, currentStepIndex, gridView } = this.state;
     const width = inputs[0];
     const height = inputs[1];
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
@@ -119,7 +139,7 @@ class App extends Component {
     let totalSquares = 0;
     if (steps.length) {
       gcd = steps[steps.length - 1].gcd;
-      totalSquares = inputs[0] * inputs[1] / gcd;
+      totalSquares = inputs[0] / gcd * inputs[1] / gcd;
     }
 
     return (
@@ -145,16 +165,21 @@ class App extends Component {
               border: '1px solid gray',
               display: 'flex',
               flexDirection: orientation,
-              boxSizing: 'border-box',
               cursor: 'pointer',
+              flexWrap: 'wrap',
             }}
             onClick={this.onClick}
           >
-            {this.renderStep(steps, 0, orientation, currentStepIndex)}
+            {gridView
+              ? this.renderGrid(totalSquares, gcd)
+              : this.renderStep(steps, 0, orientation, currentStepIndex)}
           </div>
         ) : (
           <div>Both width and height are required!</div>
         )}
+        <button onClick={this.toggleGridView}>
+          {gridView ? 'Step View' : 'Grid View'}{' '}
+        </button>
       </div>
     );
   }
