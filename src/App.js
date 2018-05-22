@@ -154,7 +154,7 @@ class App extends Component {
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
         <div>
-          The GCD is {gcd} ({totalSquares} squares) The current step is{' '}
+    The GCD is {gcd} ({totalSquares} squares). Showing step {' '}
           {currentStepIndex}/{steps.length}
         </div>
         {this.hasBothInputs(inputs) ? (
