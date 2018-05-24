@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import "./index.css";
+
+import { Title } from './App.css';
 
 import Step from "./Step";
 
@@ -121,7 +121,7 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Euclidean Algorithm</h1>
+        <Title>Euclidean Algorithm</Title>
         <p>Enter 2 numbers to find the greatest common divisor</p>
 
         <div>
