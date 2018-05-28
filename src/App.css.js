@@ -22,6 +22,8 @@ export const StepWrapper = styled('div')`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   background: lightgreen;
+  transition: opacity 1s ease-in;
+  opacity: ${props => (props.hidden ? 0 : 1)};
 `;
 
 export const GridTile = styled('div')`

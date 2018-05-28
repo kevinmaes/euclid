@@ -83,20 +83,28 @@ class App extends Component {
     orientation === LANDSCAPE ? PORTRAIT : LANDSCAPE;
 
   renderStep = (steps = [], index, orientation, currentStepIndex) => {
+    // There are no steps to be rendered.
     if (index > steps.length - 1) {
       return null;
     }
 
-    if (currentStepIndex <= index) {
-      return null;
-    }
+    // if (currentStepIndex <= index) {
+    //   return null;
+    // }
+
+    const hidden = currentStepIndex <= index;
 
     const step = steps[index];
     const { lg, size } = step;
     const height = orientation === LANDSCAPE ? size : lg;
     const width = orientation === LANDSCAPE ? lg : size;
     return (
-      <StepWrapper orientation={orientation} width={width} height={height}>
+      <StepWrapper
+        orientation={orientation}
+        width={width}
+        height={height}
+        hidden={hidden}
+      >
         <Step step={step} orientation={orientation} style={{}} />
         {this.renderStep(
           steps,
