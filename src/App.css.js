@@ -21,7 +21,7 @@ export const StepWrapper = styled('div')`
   flex-direction: ${props => props.orientation};
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  background: lightgreen;
+  /* background: lightgreen; */
   transition: opacity 1s ease-in;
   opacity: ${props => (props.hidden ? 0 : 1)};
 `;
@@ -29,6 +29,6 @@ export const StepWrapper = styled('div')`
 export const GridTile = styled('div')`
   width: ${props => props.size}px;
   height: ${props => props.size};
-  border: 1px dotted green;
+  border: 1px dotted gray;
   box-sizing: border-box;
 `;
