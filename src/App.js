@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Title, Frame, StepWrapper } from './App.css';
+import { Title, Frame, StepWrapper, GridTile } from './App.css';
 
 import Step from './Step';
 import './index.css';
@@ -96,11 +96,7 @@ class App extends Component {
     const height = orientation === LANDSCAPE ? size : lg;
     const width = orientation === LANDSCAPE ? lg : size;
     return (
-      <StepWrapper
-        orientation={orientation}
-        width={width}
-        height={height}
-      >
+      <StepWrapper orientation={orientation} width={width} height={height}>
         <Step step={step} orientation={orientation} style={{}} />
         {this.renderStep(
           steps,
@@ -115,17 +111,7 @@ class App extends Component {
   renderGrid = (totalSquares, gcd) => {
     const children = new Array(totalSquares);
     children.fill({});
-    return children.map((child, i) => (
-      <div
-        key={i}
-        style={{
-          width: gcd,
-          height: gcd,
-          border: '1px dotted green',
-          boxSizing: 'border-box',
-        }}
-      />
-    ));
+    return children.map((child, i) => <GridTile key={i} size={gcd} />);
   };
 
   render() {
@@ -152,7 +138,7 @@ class App extends Component {
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
         <div>
-    The GCD is {gcd} ({totalSquares} squares). Showing step {' '}
+          The GCD is {gcd} ({totalSquares} squares). Showing step{' '}
           {currentStepIndex}/{steps.length}
         </div>
         {this.hasBothInputs(inputs) ? (
