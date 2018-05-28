@@ -3,48 +3,37 @@ import React, { Component } from 'react';
 import { Title } from './App.css';
 
 import Step from './Step';
+import './index.css';
 
-const desc = fn => (...args) => {
-  if (args[0] < args[1]) {
-    args.reverse();
-  }
-  return fn(...args);
-};
+import descending from './utils/descending';
+import { gcd, gcdSteps } from './utils/gcd';
 
-const gcd = (a, b) => {
-  const rem = a % b;
-  return rem === 0 ? b : gcd(b, rem);
-};
-
-const calcGCD = desc(gcd);
+const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
 const setInputs = inputs => () => ({ inputs });
 
-// Functional setState for result.
-const setResult = result => () => ({ result });
-
 const VISIBLE_CHILD_MAX = 1000;
-
-const PROBLEM = 'renderProblem';
-const MEASUREMENT = 'renderMeasurement';
-const SOLUTION = 'renderSolution';
-const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
+const LANDSCAPE = 'row';
+const PORTRAIT = 'column';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      inputs: [345, 150],
-      result: 0,
-      mode: 0,
-    };
-  }
+  constructor(props) {
+    super(props);
+    const { width, height } = props;
+    const inputs = [];
+    if (width && height) {
+      inputs.push(width);
+      inputs.push(height);
+    }
 
-  componentDidMount() {
-    const { inputs } = this.state;
-    const result = this.calculateResult(inputs);
-    this.setState(setResult(result));
+    const steps = this.getSteps(inputs);
+    this.state = {
+      inputs,
+      steps,
+      currentStepIndex: 0,
+      gridView: false,
+    };
   }
 
   onInputChange = event => {
@@ -54,14 +43,15 @@ class App extends Component {
     const { inputs } = this.state;
     const newInputs = [...inputs];
     newInputs[index] = value || 0;
-    const result = this.calculateResult(newInputs);
 
     this.setState(setInputs(newInputs));
-    this.setState(setResult(result));
+    const steps = this.getSteps(newInputs);
+    this.setState({ steps });
+    this.setState({ currentStepIndex: 0 });
   };
 
-  calculateResult = inputs =>
-    this.hasBothInputs(inputs) ? calcGCD(...inputs) : 0;
+  getSteps = inputs =>
+    this.hasBothInputs(inputs) ? calcGCDSteps(...inputs) : [];
 
   inputsToStyle = inputs => {
     return {
@@ -73,51 +63,86 @@ class App extends Component {
   hasBothInputs = inputs => inputs && inputs[0] && inputs[1];
 
   onClick = () => {
-    const { mode } = this.state;
-    if (mode < renderers.length - 1) {
-      return this.setState({ mode: mode + 1 });
-    }
-    return this.setState({ mode: 0 });
+    this.setState(({ steps, currentStepIndex }) => {
+      const newCurrentStepIndex =
+        steps.length && currentStepIndex <= steps.length - 1
+          ? currentStepIndex + 1
+          : 0;
+
+      return {
+        currentStepIndex: newCurrentStepIndex,
+      };
+    });
   };
 
-  renderProblem = inputs => <Step inputs={inputs} />;
+  toggleGridView = event => {
+    this.setState(({ gridView }) => ({ gridView: !gridView }));
+  };
 
-  renderMeasurement = inputs => <Step inputs={inputs} showChildren />;
+  flipOrientation = orientation =>
+    orientation === LANDSCAPE ? PORTRAIT : LANDSCAPE;
 
-  renderSolution = (inputs, children) => {
-    const { result } = this.state;
+  renderStep = (steps = [], index, orientation, currentStepIndex) => {
+    if (index > steps.length - 1) {
+      return null;
+    }
 
+    if (currentStepIndex <= index) {
+      return null;
+    }
+
+    const step = steps[index];
+    const { lg, size } = step;
+    const height = orientation === LANDSCAPE ? size : lg;
+    const width = orientation === LANDSCAPE ? lg : size;
     return (
       <div
-        className="rectangle"
         style={{
-          width: inputs[0],
-          height: inputs[1],
+          display: 'flex',
+          flexDirection: orientation,
+          boxSizing: 'border-box',
+          width,
+          height,
         }}
       >
-        {children.length <= VISIBLE_CHILD_MAX &&
-          children.map((child, i) => (
-            <div
-              className="child"
-              key={i}
-              style={{ width: result, height: result }}
-            />
-          ))}
+        <Step step={step} orientation={orientation} style={{}} />
+        {this.renderStep(
+          steps,
+          index + 1,
+          this.flipOrientation(orientation),
+          currentStepIndex
+        )}
       </div>
     );
   };
 
+  renderGrid = (totalSquares, gcd) => {
+    const children = new Array(totalSquares);
+    children.fill({});
+    return children.map((child, i) => (
+      <div
+        key={i}
+        style={{
+          width: gcd,
+          height: gcd,
+          border: '1px dotted green',
+          boxSizing: 'border-box',
+        }}
+      />
+    ));
+  };
+
   render() {
-    const { inputs, result, mode } = this.state;
-
-    const numChildren = inputs[0] / result * (inputs[1] / result);
-    const children = [];
-    if (this.hasBothInputs(inputs) && Number.isFinite(numChildren)) {
-      children.length = numChildren;
-      children.fill();
+    const { inputs, steps, currentStepIndex, gridView } = this.state;
+    const width = inputs[0];
+    const height = inputs[1];
+    const orientation = width > height ? LANDSCAPE : PORTRAIT;
+    let gcd = 0;
+    let totalSquares = 0;
+    if (steps.length) {
+      gcd = steps[steps.length - 1].gcd;
+      totalSquares = inputs[0] / gcd * inputs[1] / gcd;
     }
-
-    const renderFn = this[renderers[mode]];
 
     return (
       <div>
@@ -131,9 +156,32 @@ class App extends Component {
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
         <div>
-          The GCD is {result} ({children.length} squares)
+    The GCD is {gcd} ({totalSquares} squares). Showing step {' '}
+          {currentStepIndex}/{steps.length}
         </div>
-        <div onClick={this.onClick}>{renderFn(inputs, children)}</div>
+        {this.hasBothInputs(inputs) ? (
+          <div
+            style={{
+              width: inputs[0],
+              height: inputs[1],
+              border: '1px solid gray',
+              display: 'flex',
+              flexDirection: orientation,
+              cursor: 'pointer',
+              flexWrap: 'wrap',
+            }}
+            onClick={this.onClick}
+          >
+            {gridView
+              ? this.renderGrid(totalSquares, gcd)
+              : this.renderStep(steps, 0, orientation, currentStepIndex)}
+          </div>
+        ) : (
+          <div>Both width and height are required!</div>
+        )}
+        <button onClick={this.toggleGridView}>
+          {gridView ? 'Step View' : 'Grid View'}{' '}
+        </button>
       </div>
     );
   }
