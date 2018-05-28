@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { StepFragment } from './Step.css';
+
 export default props => {
   const { size, divisor } = props.step;
   const children = new Array(divisor);
@@ -8,15 +10,9 @@ export default props => {
   return (
     <React.Fragment>
       {children.map((_, i) => (
-        <div
+        <StepFragment
           key={i}
-          style={{
-            position: 'relative',
-            width: size,
-            height: size,
-            border: '1px solid gray',
-            boxSizing: 'border-box',
-          }}
+          size={size}
         />
       ))}
     </React.Fragment>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Title, Frame } from './App.css';
+import { Title, Frame, StepWrapper } from './App.css';
 
 import Step from './Step';
 import './index.css';
@@ -96,14 +96,10 @@ class App extends Component {
     const height = orientation === LANDSCAPE ? size : lg;
     const width = orientation === LANDSCAPE ? lg : size;
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: orientation,
-          boxSizing: 'border-box',
-          width,
-          height,
-        }}
+      <StepWrapper
+        orientation={orientation}
+        width={width}
+        height={height}
       >
         <Step step={step} orientation={orientation} style={{}} />
         {this.renderStep(
@@ -112,7 +108,7 @@ class App extends Component {
           this.flipOrientation(orientation),
           currentStepIndex
         )}
-      </div>
+      </StepWrapper>
     );
   };
 
