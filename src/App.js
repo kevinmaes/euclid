@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Title } from './App.css';
+import { Title, Frame } from './App.css';
 
 import Step from './Step';
 import './index.css';
@@ -160,22 +160,16 @@ class App extends Component {
           {currentStepIndex}/{steps.length}
         </div>
         {this.hasBothInputs(inputs) ? (
-          <div
-            style={{
-              width: inputs[0],
-              height: inputs[1],
-              border: '1px solid gray',
-              display: 'flex',
-              flexDirection: orientation,
-              cursor: 'pointer',
-              flexWrap: 'wrap',
-            }}
+          <Frame
+            width={inputs[0]}
+            height={inputs[1]}
+            flexDirection={orientation}
             onClick={this.onClick}
           >
             {gridView
               ? this.renderGrid(totalSquares, gcd)
               : this.renderStep(steps, 0, orientation, currentStepIndex)}
-          </div>
+          </Frame>
         ) : (
           <div>Both width and height are required!</div>
         )}
