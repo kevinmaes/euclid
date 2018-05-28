@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./index.css";
+import { Title } from './App.css';
 
-import Step from "./Step";
+import Step from './Step';
 
 const desc = fn => (...args) => {
   if (args[0] < args[1]) {
@@ -26,23 +26,18 @@ const setResult = result => () => ({ result });
 
 const VISIBLE_CHILD_MAX = 1000;
 
-const PROBLEM = "renderProblem";
-const MEASUREMENT = "renderMeasurement";
-const SOLUTION = "renderSolution";
+const PROBLEM = 'renderProblem';
+const MEASUREMENT = 'renderMeasurement';
+const SOLUTION = 'renderSolution';
 const renderers = [PROBLEM, MEASUREMENT, SOLUTION];
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    const inputs = [];
-    if (props.width && props.height) {
-      inputs.push(props.width);
-      inputs.push(props.height);
-    }
+  constructor() {
+    super();
     this.state = {
-      inputs,
+      inputs: [345, 150],
       result: 0,
-      mode: 0
+      mode: 0,
     };
   }
 
@@ -71,7 +66,7 @@ class App extends Component {
   inputsToStyle = inputs => {
     return {
       width: inputs[0],
-      height: inputs[1]
+      height: inputs[1],
     };
   };
 
@@ -97,7 +92,7 @@ class App extends Component {
         className="rectangle"
         style={{
           width: inputs[0],
-          height: inputs[1]
+          height: inputs[1],
         }}
       >
         {children.length <= VISIBLE_CHILD_MAX &&
@@ -126,7 +121,7 @@ class App extends Component {
 
     return (
       <div>
-        <h1>Euclidean Algorithm</h1>
+        <Title>Euclidean Algorithm</Title>
         <p>Enter 2 numbers to find the greatest common divisor</p>
 
         <div>
