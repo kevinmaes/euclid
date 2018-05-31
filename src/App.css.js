@@ -34,7 +34,7 @@ export const Grid = styled('div')`
   display: flex;
   flex-wrap: wrap;
   transition: opacity 0.7s ease-in;
-  opacity: ${props => !console.log(props.hidden, props.hidden ? 0 : 1) && (props.hidden ? 0 : 1)};
+  opacity: ${props => (props.hidden ? 0 : 1)};
 `;
 
 export const GridTile = styled('div')`
@@ -42,5 +42,4 @@ export const GridTile = styled('div')`
   height: ${props => props.size};
   border: 1px dotted gray;
   box-sizing: border-box;
-
 `;

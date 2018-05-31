@@ -28,11 +28,11 @@ class App extends Component {
     }
 
     const steps = this.getSteps(inputs);
+
     this.state = {
       inputs,
       steps,
       currentStepIndex: 0,
-      gridView: false,
     };
   }
 
@@ -73,10 +73,6 @@ class App extends Component {
         currentStepIndex: newCurrentStepIndex,
       };
     });
-  };
-
-  toggleGridView = event => {
-    this.setState(({ gridView }) => ({ gridView: !gridView }));
   };
 
   flipOrientation = orientation =>
@@ -136,7 +132,7 @@ class App extends Component {
   };
 
   render() {
-    const { inputs, steps, currentStepIndex, gridView } = this.state;
+    const { inputs, steps, currentStepIndex } = this.state;
     const width = inputs[0];
     const height = inputs[1];
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
@@ -172,9 +168,6 @@ class App extends Component {
         ) : (
           <div>Both width and height are required!</div>
         )}
-        <button onClick={this.toggleGridView}>
-          {gridView ? 'Step View' : 'Grid View'}{' '}
-        </button>
       </div>
     );
   }
