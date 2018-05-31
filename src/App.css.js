@@ -89,6 +89,6 @@ export const Grid = styled('div')`
 
 export const GridTile = styled('div')`
   width: ${props => props.size}px;
-  height: ${props => props.size};
+  height: ${props => props.size}px;
   border: 1px dotted #68677a;
 `;
