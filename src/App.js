@@ -16,8 +16,7 @@ import {
 import Step from './Step';
 
 import descending from './utils/descending';
-import { gcd, gcdSteps } from './utils/gcd';
-import calcTotalSquares from './utils/calcTotalSquares';
+import { gcd, gcdSteps, calcGCDSquares } from './utils/gcd';
 
 const calcGCDSteps = descending(gcdSteps);
 
@@ -152,7 +151,7 @@ class App extends Component {
     const height = inputs[1];
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
 
-    const { gcd, totalSquares } = calcTotalSquares(steps, inputs);
+    const { gcd, totalSquares } = calcGCDSquares(steps, inputs);
 
     return (
       <Wrapper>
