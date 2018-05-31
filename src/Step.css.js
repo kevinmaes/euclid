@@ -5,7 +5,6 @@ export const StepFragment = styled('div')`
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   border: 1px dotted gray;
-  box-sizing: border-box;
   padding-top: ${props => props.size / 2 - 5 > 0 ? props.size / 2 - 5 : 2}px;
 `;
 

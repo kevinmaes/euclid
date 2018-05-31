@@ -19,13 +19,13 @@ export const Frame = styled('div')`
   flex-wrap: wrap;
   background: yellow;
   position: relative;
+  box-sizing: content-box;
 `;
 
 export const StepWrapper = styled('div')`
   ${fade};
 
   display: flex;
-  box-sizing: border-box;
   flex-direction: ${props => props.orientation};
   width: ${props => props.width}px;
   height: ${props => props.height}px;
@@ -45,5 +45,4 @@ export const GridTile = styled('div')`
   width: ${props => props.size}px;
   height: ${props => props.size};
   border: 1px dotted gray;
-  box-sizing: border-box;
 `;
