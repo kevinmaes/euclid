@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Title, Frame, StepWrapper, GridTile, Grid } from './App.css';
 
 import Step from './Step';
-import './index.css';
 
 import descending from './utils/descending';
 import { gcd, gcdSteps } from './utils/gcd';

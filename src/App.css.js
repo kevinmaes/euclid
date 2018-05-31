@@ -6,7 +6,6 @@ const fade = props => css`
 `;
 
 export const Title = styled('h1')`
-  font-family: Arial, Helvetica, sans-serif;
   color: green;
 `;
 
