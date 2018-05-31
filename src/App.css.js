@@ -7,6 +7,8 @@ const fade = props => css`
 
 export const Wrapper = styled('div')`
   padding: 30px;
+  min-width: 500px;
+
 `;
 export const Title = styled('h1')`
   color: #68677a;
@@ -19,7 +21,8 @@ export const Instructions = styled('p')`
   margin-bottom: 20px;
 `;
 
-export const Form = styled('form')``;
+export const Form = styled('form')`
+`;
 
 export const Label = styled('label')`
   font-size: 12px;
