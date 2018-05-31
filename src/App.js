@@ -142,6 +142,15 @@ class App extends Component {
     }`;
   };
 
+  renderInputForm = inputs => (
+    <Form>
+      <Label htmlFor="width">Width</Label>
+      <input id="width" onChange={this.onInputChange} value={inputs[0]} />
+      <Label htmlFor="height">Height</Label>
+      <input id="height" onChange={this.onInputChange} value={inputs[1]} />
+    </Form>
+  );
+
   render() {
     const { inputs, steps, currentStepIndex } = this.state;
     const width = inputs[0];
@@ -154,12 +163,7 @@ class App extends Component {
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
         <p>Enter 2 numbers to find the greatest common divisor</p>
-        <Form>
-          <Label htmlFor="width">Width</Label>
-          <input id="width" onChange={this.onInputChange} value={inputs[0]} />
-          <Label htmlFor="height">Height</Label>
-          <input id="height" onChange={this.onInputChange} value={inputs[1]} />
-        </Form>
+        {this.renderInputForm(inputs)}
         {this.hasBothInputs(inputs) ? (
           <Frame
             width={inputs[0]}
