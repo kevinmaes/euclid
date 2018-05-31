@@ -125,6 +125,16 @@ class App extends Component {
     );
   };
 
+  renderMsg = (gcd, totalSquares, steps, currentStepIndex) => {
+    if (currentStepIndex === 0) {
+      return 'Click the rectangle to start calculating the GCD';
+    }
+    if (currentStepIndex > steps.length) {
+      return `GCD is ${gcd} (${totalSquares} squares)`;
+    }
+    return `Showing step ${currentStepIndex} of ${steps.length}`;
+  };
+
   render() {
     const { inputs, steps, currentStepIndex, gridView } = this.state;
     const width = inputs[0];
@@ -148,10 +158,7 @@ class App extends Component {
           <label>Height</label>
           <input id="1" onChange={this.onInputChange} value={inputs[1]} />
         </div>
-        <div>
-          The GCD is {gcd} ({totalSquares} squares). Showing step{' '}
-          {currentStepIndex}/{steps.length}
-        </div>
+        <div>{this.renderMsg(gcd, totalSquares, steps, currentStepIndex)}</div>
         {this.hasBothInputs(inputs) ? (
           <Frame
             width={inputs[0]}
