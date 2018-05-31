@@ -5,15 +5,37 @@ const fade = props => css`
   opacity: ${props.hidden ? 0 : 1};
 `;
 
+export const Wrapper = styled('div')`
+  padding: 30px;
+`;
 export const Title = styled('h1')`
   color: green;
 `;
 
 export const Form = styled('form')`
-  margin: 20px;
-`
+`;
+export const Label = styled('label')`
+  font-size: 12px;
+  color: gray;
+  margin-right: 10px;
+`;
+
+export const Message = styled('span')`
+  margin-bottom: 10px;
+  display: inline-block;
+  `;
+
+export const ErrorMsg = styled('span')`
+  font-size: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  color: red;
+  display: inline-block;
+`;
 
 export const Frame = styled('div')`
+  margin: 30px 0 30px 0;
+
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   border: 1px solid gray;

@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
-import { Title, Form, Frame, StepWrapper, GridTile, Grid } from './App.css';
+import {
+  Wrapper,
+  Title,
+  Form,
+  Label,
+  Message,
+  Frame,
+  StepWrapper,
+  GridTile,
+  Grid,
+  ErrorMsg,
+} from './App.css';
 
 import Step from './Step';
 
@@ -36,7 +47,7 @@ class App extends Component {
   }
 
   onInputChange = event => {
-    const index = event.target.id === 'width' ? 0 : 1
+    const index = event.target.id === 'width' ? 0 : 1;
     const value = parseInt(event.target.value, 10);
 
     const { inputs } = this.state;
@@ -135,22 +146,22 @@ class App extends Component {
     const orientation = width > height ? LANDSCAPE : PORTRAIT;
     let gcd = 0;
     let totalSquares = 0;
+
     if (steps.length) {
       gcd = steps[steps.length - 1].gcd;
       totalSquares = inputs[0] / gcd * inputs[1] / gcd;
     }
 
     return (
-      <div>
+      <Wrapper>
         <Title>Euclidean Algorithm</Title>
         <p>Enter 2 numbers to find the greatest common divisor</p>
         <Form>
-          <label htmlFor="width">Width</label>
+          <Label htmlFor="width">Width</Label>
           <input id="width" onChange={this.onInputChange} value={inputs[0]} />
-          <label htmlFor="height">Height</label>
+          <Label htmlFor="height">Height</Label>
           <input id="height" onChange={this.onInputChange} value={inputs[1]} />
         </Form>
-        <div>{this.renderMsg(gcd, totalSquares, steps, currentStepIndex)}</div>
         {this.hasBothInputs(inputs) ? (
           <Frame
             width={inputs[0]}
@@ -162,9 +173,12 @@ class App extends Component {
             {this.renderGrid(totalSquares, gcd, currentStepIndex, steps.length)}
           </Frame>
         ) : (
-          <div>Both width and height are required!</div>
+          <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
-      </div>
+        <Message>
+          {this.renderMsg(gcd, totalSquares, steps, currentStepIndex)}
+        </Message>
+      </Wrapper>
     );
   }
 }
