@@ -86,7 +86,6 @@ class App extends Component {
 
     const hidden = currentStepIndex <= index || currentStepIndex > steps.length;
 
-    console.log('renderStep', hidden, currentStepIndex, index);
     const step = steps[index];
     const { lg, size } = step;
     const height = orientation === LANDSCAPE ? size : lg;
@@ -111,7 +110,6 @@ class App extends Component {
 
   renderGrid = (totalSquares, gcd, currentStepIndex, totalSteps) => {
     const hidden = currentStepIndex < totalSteps + 1;
-    console.log('grid hidden', hidden, currentStepIndex, totalSteps);
     const children = new Array(totalSquares);
     children.fill({});
     return (
