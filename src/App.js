@@ -143,9 +143,9 @@ class App extends Component {
 
   renderInputForm = inputs => (
     <Form>
-      <Label htmlFor="width">Width</Label>
+      <Label htmlFor="width">W</Label>
       <Input id="width" onChange={this.onInputChange} value={inputs[0]} />
-      <Label htmlFor="height">Height</Label>
+      <Label htmlFor="height">H</Label>
       <Input id="height" onChange={this.onInputChange} value={inputs[1]} />
     </Form>
   );

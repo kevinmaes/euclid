@@ -9,7 +9,7 @@ export const Wrapper = styled('div')`
   padding: 30px;
 `;
 export const Title = styled('h1')`
-  color: green;
+  color: #68677A;
 `;
 
 export const Instructions = styled('p')`
@@ -22,13 +22,15 @@ export const Form = styled('form')``;
 
 export const Label = styled('label')`
   font-size: 12px;
-  color: #68677a;
-  margin-right: 6px;
-`;
+  color: #fff;
+  margin-right: 4px;
+  `;
 
 export const Input = styled('input')`
-  margin-right: 20px;
+  margin-right: 10px;
   outline: none;
+  color: #68677a;
+  width: 80px;
 `;
 
 export const Message = styled('span')`
