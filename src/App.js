@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   Wrapper,
   Title,
+  Instructions,
   Form,
   Label,
   Input,
@@ -134,9 +135,9 @@ class App extends Component {
       return 'Click the rectangle to start calculating the GCD';
     }
     if (currentStepIndex > steps.length) {
-      return `GCD is ${gcd} (${totalSquares} squares)`;
+      return `GCD = ${gcd} (${totalSquares} squares)`;
     }
-    return `Showing step ${currentStepIndex} of ${steps.length}, size is ${
+    return `Step ${currentStepIndex} / ${steps.length}, size = ${
       currentStep.size
     }`;
   };
@@ -161,7 +162,7 @@ class App extends Component {
     return (
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
-        <p>Enter 2 numbers to find the greatest common divisor</p>
+        <Instructions>Enter 2 numbers to find the greatest common divisor</Instructions>
         {this.renderInputForm(inputs)}
         {this.hasBothInputs(inputs) ? (
           <Frame

@@ -12,15 +12,23 @@ export const Title = styled('h1')`
   color: green;
 `;
 
+export const Instructions = styled('p')`
+  font-size: 14px;
+  font-style: italic;
+  color: #68677a;
+`;
+
 export const Form = styled('form')``;
+
 export const Label = styled('label')`
   font-size: 12px;
-  color: gray;
-  margin-right: 10px;
+  color: #68677a;
+  margin-right: 6px;
 `;
 
 export const Input = styled('input')`
   margin-right: 20px;
+  outline: none;
 `;
 
 export const Message = styled('span')`
