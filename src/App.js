@@ -16,14 +16,13 @@ import {
 } from './App.css';
 import Step from './Step';
 import descending from './utils/descending';
-import { gcd, gcdSteps, calcGCDSquares } from './utils/gcd';
+import { gcdSteps, calcGCDSquares } from './utils/gcd';
 
 const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
 const setInputs = inputs => () => ({ inputs });
 
-const VISIBLE_CHILD_MAX = 1000;
 const LANDSCAPE = 'row';
 const PORTRAIT = 'column';
 
