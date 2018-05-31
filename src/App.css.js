@@ -9,7 +9,7 @@ export const Wrapper = styled('div')`
   padding: 30px;
 `;
 export const Title = styled('h1')`
-  color: #68677A;
+  color: #68677a;
 `;
 
 export const Instructions = styled('p')`
@@ -25,7 +25,7 @@ export const Label = styled('label')`
   font-size: 12px;
   color: #fff;
   margin-right: 4px;
-  `;
+`;
 
 export const Input = styled('input')`
   margin-right: 10px;
@@ -56,7 +56,7 @@ export const Frame = styled('div')`
   flex-direction: ${props => props.orientation};
   cursor: pointer;
   flex-wrap: wrap;
-  background: #debf6c;
+  background: rgba(222, 191, 108, 0.8);
   position: relative;
   box-sizing: content-box;
   box-shadow: 0 2px 6px #b0bac5;
