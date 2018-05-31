@@ -13,11 +13,12 @@ import {
   GridTile,
   Grid,
   ErrorMsg,
+  Image,
 } from './App.css';
 import Step from './Step';
 import descending from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
-
+import Pattern from './assets/images/pattern.png';
 const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
@@ -160,8 +161,11 @@ class App extends Component {
 
     return (
       <Wrapper>
+        <Image src={Pattern} />
         <Title>Euclidean Algorithm</Title>
-        <Instructions>Enter 2 numbers to find the greatest common divisor</Instructions>
+        <Instructions>
+          Enter 2 numbers to find the greatest common divisor
+        </Instructions>
         {this.renderInputForm(inputs)}
         {this.hasBothInputs(inputs) ? (
           <Frame

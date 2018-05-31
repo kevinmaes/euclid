@@ -48,6 +48,12 @@ export const ErrorMsg = styled('span')`
   display: inline-block;
 `;
 
+export const Image = styled('img')`
+  position: absolute;
+  transform: translate(-380px, -80px);
+  opacity: 0.1;
+`;
+
 export const Frame = styled('div')`
   margin: 30px 0 30px 0;
   width: ${props => props.width}px;
