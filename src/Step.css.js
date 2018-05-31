@@ -4,7 +4,8 @@ export const StepFragment = styled('div')`
   position: relative;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
-  border: 1px dotted gray;
+  border: ${props => props.size >= 4 ? '1px dotted gray' : 'none'};
+  background: ${props => props.size >= 4 ? 'none' : 'gray'};
   padding-top: ${props => props.size / 2 - 5 > 0 ? props.size / 2 - 5 : 2}px;
 `;
 
