@@ -9,6 +9,10 @@ export const Title = styled('h1')`
   color: green;
 `;
 
+export const Form = styled('form')`
+  margin: 20px;
+`
+
 export const Frame = styled('div')`
   width: ${props => props.width}px;
   height: ${props => props.height}px;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Title, Frame, StepWrapper, GridTile, Grid } from './App.css';
+import { Title, Form, Frame, StepWrapper, GridTile, Grid } from './App.css';
 
 import Step from './Step';
 
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   onInputChange = event => {
-    const index = parseInt(event.target.id, 10);
+    const index = event.target.id === 'width' ? 0 : 1
     const value = parseInt(event.target.value, 10);
 
     const { inputs } = this.state;
@@ -144,13 +144,12 @@ class App extends Component {
       <div>
         <Title>Euclidean Algorithm</Title>
         <p>Enter 2 numbers to find the greatest common divisor</p>
-
-        <div>
-          <label>Width</label>
-          <input id="0" onChange={this.onInputChange} value={inputs[0]} />
-          <label>Height</label>
-          <input id="1" onChange={this.onInputChange} value={inputs[1]} />
-        </div>
+        <Form>
+          <label htmlFor="width">Width</label>
+          <input id="width" onChange={this.onInputChange} value={inputs[0]} />
+          <label htmlFor="height">Height</label>
+          <input id="height" onChange={this.onInputChange} value={inputs[1]} />
+        </Form>
         <div>{this.renderMsg(gcd, totalSquares, steps, currentStepIndex)}</div>
         {this.hasBothInputs(inputs) ? (
           <Frame
