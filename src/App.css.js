@@ -16,6 +16,7 @@ export const Instructions = styled('p')`
   font-size: 14px;
   font-style: italic;
   color: #68677a;
+  margin-bottom: 20px;
 `;
 
 export const Form = styled('form')``;
