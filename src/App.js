@@ -13,9 +13,7 @@ import {
   Grid,
   ErrorMsg,
 } from './App.css';
-
 import Step from './Step';
-
 import descending from './utils/descending';
 import { gcd, gcdSteps, calcGCDSquares } from './utils/gcd';
 
