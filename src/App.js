@@ -5,6 +5,7 @@ import {
   Title,
   Form,
   Label,
+  Input,
   Message,
   Frame,
   StepWrapper,
@@ -145,9 +146,9 @@ class App extends Component {
   renderInputForm = inputs => (
     <Form>
       <Label htmlFor="width">Width</Label>
-      <input id="width" onChange={this.onInputChange} value={inputs[0]} />
+      <Input id="width" onChange={this.onInputChange} value={inputs[0]} />
       <Label htmlFor="height">Height</Label>
-      <input id="height" onChange={this.onInputChange} value={inputs[1]} />
+      <Input id="height" onChange={this.onInputChange} value={inputs[1]} />
     </Form>
   );
 
