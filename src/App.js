@@ -130,13 +130,19 @@ class App extends Component {
   };
 
   renderMsg = (gcd, totalSquares, steps, currentStepIndex) => {
+    const currentStep = steps[currentStepIndex - 1];
+    if (currentStep) {
+      console.log(currentStep);
+    }
     if (currentStepIndex === 0) {
       return 'Click the rectangle to start calculating the GCD';
     }
     if (currentStepIndex > steps.length) {
       return `GCD is ${gcd} (${totalSquares} squares)`;
     }
-    return `Showing step ${currentStepIndex} of ${steps.length}`;
+    return `Showing step ${currentStepIndex} of ${steps.length}, size is ${
+      currentStep.size
+    }`;
   };
 
   render() {
