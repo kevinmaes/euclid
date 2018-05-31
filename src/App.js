@@ -131,9 +131,6 @@ class App extends Component {
 
   renderMsg = (gcd, totalSquares, steps, currentStepIndex) => {
     const currentStep = steps[currentStepIndex - 1];
-    if (currentStep) {
-      console.log(currentStep);
-    }
     if (currentStepIndex === 0) {
       return 'Click the rectangle to start calculating the GCD';
     }
