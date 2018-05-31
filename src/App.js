@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Title, Frame, StepWrapper, GridTile } from './App.css';
+import { Title, Frame, StepWrapper, GridTile, Grid } from './App.css';
 
 import Step from './Step';
 import './index.css';
@@ -65,7 +65,7 @@ class App extends Component {
   onClick = () => {
     this.setState(({ steps, currentStepIndex }) => {
       const newCurrentStepIndex =
-        steps.length && currentStepIndex <= steps.length - 1
+        steps.length && currentStepIndex <= steps.length
           ? currentStepIndex + 1
           : 0;
 
@@ -88,12 +88,9 @@ class App extends Component {
       return null;
     }
 
-    // if (currentStepIndex <= index) {
-    //   return null;
-    // }
+    const hidden = currentStepIndex <= index || currentStepIndex > steps.length;
 
-    const hidden = currentStepIndex <= index;
-
+    console.log('renderStep', hidden, currentStepIndex, index);
     const step = steps[index];
     const { lg, size } = step;
     const height = orientation === LANDSCAPE ? size : lg;
@@ -116,10 +113,16 @@ class App extends Component {
     );
   };
 
-  renderGrid = (totalSquares, gcd) => {
+  renderGrid = (totalSquares, gcd, currentStepIndex, totalSteps) => {
+    const hidden = currentStepIndex < totalSteps + 1;
+    console.log('grid hidden', hidden, currentStepIndex, totalSteps);
     const children = new Array(totalSquares);
     children.fill({});
-    return children.map((child, i) => <GridTile key={i} size={gcd} />);
+    return (
+      <Grid hidden={hidden}>
+        {children.map((child, i) => <GridTile key={i} size={gcd} />)}{' '}
+      </Grid>
+    );
   };
 
   render() {
@@ -156,9 +159,8 @@ class App extends Component {
             flexDirection={orientation}
             onClick={this.onClick}
           >
-            {gridView
-              ? this.renderGrid(totalSquares, gcd)
-              : this.renderStep(steps, 0, orientation, currentStepIndex)}
+            {this.renderStep(steps, 0, orientation, currentStepIndex)}
+            {this.renderGrid(totalSquares, gcd, currentStepIndex, steps.length)}
           </Frame>
         ) : (
           <div>Both width and height are required!</div>

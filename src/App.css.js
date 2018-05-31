@@ -13,6 +13,7 @@ export const Frame = styled('div')`
   cursor: pointer;
   flex-wrap: wrap;
   background: yellow;
+  position: relative;
 `;
 
 export const StepWrapper = styled('div')`
@@ -22,8 +23,18 @@ export const StepWrapper = styled('div')`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   /* background: lightgreen; */
-  transition: opacity .7s ease-in;
+  transition: opacity 0.7s ease-in;
   opacity: ${props => (props.hidden ? 0 : 1)};
+`;
+
+export const Grid = styled('div')`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  transition: opacity 0.7s ease-in;
+  opacity: ${props => !console.log(props.hidden, props.hidden ? 0 : 1) && (props.hidden ? 0 : 1)};
 `;
 
 export const GridTile = styled('div')`
@@ -31,4 +42,5 @@ export const GridTile = styled('div')`
   height: ${props => props.size};
   border: 1px dotted gray;
   box-sizing: border-box;
+
 `;
