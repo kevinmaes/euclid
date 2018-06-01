@@ -1,9 +1,6 @@
 import styled, { css } from 'react-emotion';
 
-const fade = props => css`
-  transition: opacity 0.7s ease-in;
-  opacity: ${props.hidden ? 0 : 1};
-`;
+import { fade } from './shared.css'
 
 export const List = styled('div')`
   padding: 0;
@@ -11,11 +8,17 @@ export const List = styled('div')`
 `;
 
 export const ListItem = styled('div')`
+  font-family: Montserrat Light;
   ${fade};
   display: block;
   position: relative;
   margin-bottom: 3px;
   color: #333;
+
+  :before {
+    content: "\\2713   ";
+    color: green;
+  }
 `;
 
 export const GCD = styled('span')`

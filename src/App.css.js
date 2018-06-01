@@ -1,9 +1,6 @@
 import styled, { css } from 'react-emotion';
 
-const fade = props => css`
-  transition: opacity 0.7s ease-in;
-  opacity: ${props.hidden ? 0 : 1};
-`;
+import { fade } from './shared.css'
 
 export const Wrapper = styled('div')`
   padding: 30px;
@@ -18,7 +15,7 @@ export const Instructions = styled('p')`
   font-size: 14px;
   font-style: italic;
   color: #68677a;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const Form = styled('form')`
@@ -42,6 +39,8 @@ export const Message = styled('span')`
   margin-bottom: 10px;
   display: inline-block;
   color: #68677a;
+  text-align: center;
+  width: ${props => props.width}px;
 `;
 
 export const ErrorMsg = styled('span')`
