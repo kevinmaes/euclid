@@ -10,6 +10,7 @@ export const StepFragment = styled('div')`
 `;
 
 export const Measurement = styled('div')`
+  font-family: MontserratExtraLight;
   display: block;
   text-align: center;
   width: 100%;
