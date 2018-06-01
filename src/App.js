@@ -169,7 +169,7 @@ class App extends Component {
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
         <Message width={inputs[0]}>
-          Click above to step through the algorithm
+          Click rectangle to step through the algorithm
         </Message>
         <StepLog
           items={steps}

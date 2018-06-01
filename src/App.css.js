@@ -41,6 +41,7 @@ export const Message = styled('span')`
   color: #68677a;
   text-align: center;
   width: ${props => props.width}px;
+  min-width: 345px;
 `;
 
 export const ErrorMsg = styled('span')`
