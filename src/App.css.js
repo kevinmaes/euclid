@@ -38,6 +38,7 @@ export const Input = styled('input')`
 `;
 
 export const Message = styled('span')`
+  font-size: 14px;
   margin-bottom: 10px;
   display: inline-block;
   color: #68677a;
@@ -58,7 +59,7 @@ export const Image = styled('img')`
 `;
 
 export const Frame = styled('div')`
-  margin: 30px 0 30px 0;
+  margin: 30px 0 15px 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   display: flex;

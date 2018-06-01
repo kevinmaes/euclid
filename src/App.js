@@ -16,6 +16,7 @@ import {
   Image,
 } from './App.css';
 import Step from './Step';
+import StepLog from './StepLog';
 import descending from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
 import Pattern from './assets/images/pattern.png';
@@ -129,19 +130,6 @@ class App extends Component {
     );
   };
 
-  renderMsg = (gcd, totalSquares, steps, currentStepIndex) => {
-    const currentStep = steps[currentStepIndex - 1];
-    if (currentStepIndex === 0) {
-      return 'Click the rectangle to start calculating the GCD';
-    }
-    if (currentStepIndex > steps.length) {
-      return `GCD = ${gcd} (${totalSquares} squares)`;
-    }
-    return `Step ${currentStepIndex} / ${steps.length}, size = ${
-      currentStep.size
-    }`;
-  };
-
   renderInputForm = inputs => (
     <Form>
       <Label htmlFor="width">W</Label>
@@ -181,8 +169,13 @@ class App extends Component {
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
         <Message>
-          {this.renderMsg(gcd, totalSquares, steps, currentStepIndex)}
+          Click above to step through the algorithm
         </Message>
+        <StepLog
+          items={steps}
+          currentStepIndex={currentStepIndex}
+          totalSquares={totalSquares}
+        />
       </Wrapper>
     );
   }
