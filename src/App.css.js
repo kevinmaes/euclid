@@ -56,6 +56,7 @@ export const Image = styled('img')`
   position: absolute;
   transform: translate(-380px, -80px);
   opacity: 0.1;
+  pointer-events: none;
 `;
 
 export const Frame = styled('div')`
