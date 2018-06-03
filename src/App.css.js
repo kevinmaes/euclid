@@ -2,26 +2,26 @@ import styled from 'react-emotion';
 
 import { fade } from './shared.css'
 
-export const Wrapper = styled('div')`
+export const Wrapper = styled.div`
   padding: 30px;
   min-width: 500px;
 
 `;
-export const Title = styled('h1')`
+export const Title = styled.h1`
   color: #68677a;
 `;
 
-export const Instructions = styled('p')`
+export const Instructions = styled.p`
   font-size: 14px;
   font-style: italic;
   color: #68677a;
   margin-bottom: 10px;
 `;
 
-export const Form = styled('form')`
+export const Form = styled.form`
 `;
 
-export const Label = styled('label')`
+export const Label = styled.label`
   font-size: 12px;
   color: #fff;
   margin-right: 4px;
@@ -34,7 +34,7 @@ export const Input = styled('input')`
   width: 80px;
 `;
 
-export const Message = styled('span')`
+export const Message = styled.span`
   font-size: 14px;
   margin-bottom: 10px;
   display: inline-block;
@@ -44,7 +44,7 @@ export const Message = styled('span')`
   min-width: 345px;
 `;
 
-export const ErrorMsg = styled('span')`
+export const ErrorMsg = styled.span`
   font-size: 10px;
   width: 100%;
   margin-bottom: 10px;
@@ -52,14 +52,14 @@ export const ErrorMsg = styled('span')`
   display: inline-block;
 `;
 
-export const Image = styled('img')`
+export const Image = styled.img`
   position: absolute;
   transform: translate(-380px, -80px);
   opacity: 0.1;
   pointer-events: none;
 `;
 
-export const Frame = styled('div')`
+export const Frame = styled.div`
   margin: 30px 0 15px 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
@@ -73,7 +73,7 @@ export const Frame = styled('div')`
   box-shadow: 0 2px 6px #b0bac5;
 `;
 
-export const StepWrapper = styled('div')`
+export const StepWrapper = styled.div`
   ${fade};
 
   display: flex;
@@ -82,7 +82,7 @@ export const StepWrapper = styled('div')`
   height: ${props => props.height}px;
 `;
 
-export const Grid = styled('div')`
+export const Grid = styled.div`
   ${fade};
 
   position: absolute;
@@ -92,7 +92,7 @@ export const Grid = styled('div')`
   flex-wrap: wrap;
 `;
 
-export const GridTile = styled('div')`
+export const GridTile = styled.div`
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   border: 1px dotted #68677a;
