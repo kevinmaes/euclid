@@ -1,4 +1,4 @@
-import styled, { css } from 'react-emotion';
+import { css } from 'react-emotion';
 
 export const fade = props => css`
   transition: opacity 0.7s ease-in;
