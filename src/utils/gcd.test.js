@@ -11,6 +11,7 @@ describe('gcd()', () => {
     const result = gcd(10, 4);
 
     expect(result).toBe(2);
+
   });
 
   it('should return the greatest common divisor when a and b have no gcd other than 1', () => {
