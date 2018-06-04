@@ -3,10 +3,10 @@
     "test": {
       "presets":[
         ["env", { "modules": false }],
-        "react",
+        "react"
       ],
       "plugins": [
-        "transform-es2015-modules-commonjs",
+        "transform-es2015-modules-commonjs"
       ]
     },
     "production": {
