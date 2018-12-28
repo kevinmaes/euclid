@@ -5,6 +5,6 @@ import './styles/global.css';
 import App from './App';
 
 render(
-  <App width={350} height={150} maxWidth={1000} maxHeight={1000} />,
+  <App width={345} height={150} maxWidth={1000} maxHeight={1000} />,
   document.getElementById('root')
 );
