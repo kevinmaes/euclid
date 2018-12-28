@@ -54,9 +54,6 @@ const StyledResizableBox = styled(ResizableBox)`
 
 const calcGCDSteps = descending(gcdSteps);
 
-// Functional setState for input values.
-const setInputs = inputs => () => ({ inputs });
-
 const LANDSCAPE = 'row';
 const PORTRAIT = 'column';
 
