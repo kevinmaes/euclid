@@ -36,11 +36,10 @@ injectGlobal`
   }
 
   body {
-    height: 100%;
+    height: 1500px;
     margin: 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background: rgb(188,187,213);
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
     background: linear-gradient(180deg, rgba(188,187,213,1) 0%, rgba(208,208,238,1) 35%, rgba(248,251,251,1) 100%);
   }
 `;
