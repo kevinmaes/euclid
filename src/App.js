@@ -27,12 +27,11 @@ const StyledResizableBox = styled(ResizableBox)`
   background: #ccc;
   border: 1px solid gray;
   text-align: center;
-  padding: 10px;
   box-sizing: border-box;
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
-  margin: 20px;
+  margin: 20px 0 20px;
   cursor: pointer;
 
   position: relative;
@@ -230,9 +229,11 @@ class App extends Component {
         ) : (
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
-        <Message width={inputs[0]}>
-          Step through the algorithm by clicking above.
-        </Message>
+        <div>
+          <Message width={inputs[0]}>
+            Step through the algorithm by clicking above.
+          </Message>
+        </div>
         <StepLog
           items={steps}
           currentStepIndex={currentStepIndex}
