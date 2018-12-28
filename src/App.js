@@ -29,7 +29,7 @@ const StyledResizableBox = styled(ResizableBox)`
   border: 1px solid gray;
   text-align: center;
   padding: 10px;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
@@ -167,7 +167,7 @@ class App extends Component {
     children.fill({});
     return (
       <Grid hidden={hidden}>
-        {children.map((child, i) => (
+        {children.slice(0, 100).map((child, i) => (
           <GridTile key={i} size={gcd} />
         ))}{' '}
       </Grid>
@@ -214,27 +214,13 @@ class App extends Component {
           >
             <StepFrame style={{ position: 'absolute', top: 0, left: 0 }}>
               {this.renderStep(steps, 0, orientation, currentStepIndex)}
-              {/* {this.renderGrid(
-                totalSquares,
-                gcd,
-                currentStepIndex,
-                steps.length
-              )} */}
-            </StepFrame>
-            {/* <Frame
-              width={inputs[0]}
-              height={inputs[1]}
-              flexDirection={orientation}
-              onClick={this.onClick}
-            >
-              {this.renderStep(steps, 0, orientation, currentStepIndex)}
               {this.renderGrid(
                 totalSquares,
                 gcd,
                 currentStepIndex,
                 steps.length
               )}
-            </Frame> */}
+            </StepFrame>
           </StyledResizableBox>
         ) : (
           <ErrorMsg>Width and Height are required!</ErrorMsg>
