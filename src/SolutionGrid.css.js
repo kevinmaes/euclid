@@ -10,6 +10,7 @@ export const Grid = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 `;
 
 export const GridTile = styled.div`
