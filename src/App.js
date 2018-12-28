@@ -100,7 +100,7 @@ class App extends Component {
   resize = ({ width, height }) => {
     const inputs = [width, height];
     const steps = this.getSteps(inputs);
-    this.setState({ inputs, steps, currentStepIndex: 0 });
+    this.setState({ inputs, steps, currentStepIndex: -1 });
   };
 
   getSteps = inputs =>
