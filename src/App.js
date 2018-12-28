@@ -86,6 +86,10 @@ class App extends Component {
     };
   }
 
+  reset = () => {
+    this.setState({ currentStepIndex: -1 });
+  };
+
   onInputChange = event => {
     const index = event.target.id === 'width' ? 0 : 1;
     const value = parseInt(event.target.value, 10);
@@ -207,6 +211,7 @@ class App extends Component {
             height={inputs[1]}
             minConstraints={[100, 100]}
             maxConstraints={[1000, 1000]}
+            onResizeStart={this.reset}
             onResizeStop={(_, data) => {
               console.log(data.size);
               this.resize(data.size);
