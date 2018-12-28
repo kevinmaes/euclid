@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { number } from 'prop-types';
+import { ResizableBox } from 'react-resizable';
+import styled from 'react-emotion';
 
 import {
   Wrapper,
@@ -20,6 +22,37 @@ import Step from './Step';
 import StepLog from './StepLog';
 import descending from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
+
+const StyledResizableBox = styled(ResizableBox)`
+  display: inline-block;
+  background: #ccc;
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  margin: 20px;
+
+  position: relative;
+
+  & .react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/P…4yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=);
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: se-resize;
+  }
+`;
+
 const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
@@ -59,11 +92,15 @@ class App extends Component {
     const { inputs } = this.state;
     const newInputs = [...inputs];
     newInputs[index] = value || 0;
+    const steps = this.getSteps(inputs);
 
-    this.setState(setInputs(newInputs));
-    const steps = this.getSteps(newInputs);
-    this.setState({ steps });
-    this.setState({ currentStepIndex: 0 });
+    this.setState({ inputs: newInputs, steps, currentStepIndex: 0 });
+  };
+
+  onResize = ({ width, height }) => {
+    const inputs = [width, height];
+    const steps = this.getSteps(inputs);
+    this.setState({ inputs, steps, currentStepIndex: 0 });
   };
 
   getSteps = inputs =>
@@ -154,6 +191,8 @@ class App extends Component {
 
     const { gcd, totalSquares } = calcGCDSquares(steps, inputs);
 
+    console.log('inputs', inputs);
+
     return (
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
@@ -162,15 +201,40 @@ class App extends Component {
         </Instructions>
         {this.renderInputForm(inputs)}
         {this.hasBothInputs(inputs) ? (
-          <Frame
+          <StyledResizableBox
+            className="box"
             width={inputs[0]}
             height={inputs[1]}
-            flexDirection={orientation}
-            onClick={this.onClick}
+            draggableOpts={{ grid: [25, 25] }}
+            onResizeStop={(_, data) => {
+              console.log(data.size);
+              this.onResize(data.size);
+            }}
           >
-            {this.renderStep(steps, 0, orientation, currentStepIndex)}
-            {this.renderGrid(totalSquares, gcd, currentStepIndex, steps.length)}
-          </Frame>
+            <div onClick={this.onClick}>
+              {this.renderStep(steps, 0, orientation, currentStepIndex)}
+              {/* {this.renderGrid(
+                totalSquares,
+                gcd,
+                currentStepIndex,
+                steps.length
+              )} */}
+            </div>
+            {/* <Frame
+              width={inputs[0]}
+              height={inputs[1]}
+              flexDirection={orientation}
+              onClick={this.onClick}
+            >
+              {this.renderStep(steps, 0, orientation, currentStepIndex)}
+              {this.renderGrid(
+                totalSquares,
+                gcd,
+                currentStepIndex,
+                steps.length
+              )}
+            </Frame> */}
+          </StyledResizableBox>
         ) : (
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}

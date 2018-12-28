@@ -57,7 +57,13 @@ export const Image = styled.img`
 `;
 
 export const Frame = styled.div`
-  margin: 30px 0 15px 0;
+  /* margin: 30px 0 15px 0; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   display: flex;
@@ -65,9 +71,9 @@ export const Frame = styled.div`
   cursor: pointer;
   flex-wrap: wrap;
   background: rgba(222, 191, 108, 0.8);
-  position: relative;
+  /* position: relative; */
   box-sizing: content-box;
-  box-shadow: 0 2px 6px #b0bac5;
+  /* box-shadow: 0 2px 6px #b0bac5; */
 `;
 
 export const StepWrapper = styled.div`
