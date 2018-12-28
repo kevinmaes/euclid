@@ -19,14 +19,11 @@ const StepLog = ({ items, currentStepIndex, totalSquares }) => {
       <ListItem key="start">
         Problem: Rectangle is {items[0].lg} x {items[0].sm}
       </ListItem>
-      {items.map(
-        (item, i) =>
-          !console.log(currentStepIndex, i, currentStepIndex <= i) && (
-            <ListItem key={item.sm} hidden={currentStepIndex <= i}>
-              {displayLogItem(item, i)}
-            </ListItem>
-          )
-      )}
+      {items.map((item, i) => (
+        <ListItem key={item.sm} hidden={currentStepIndex <= i}>
+          {displayLogItem(item, i)}
+        </ListItem>
+      ))}
       <ListItem key="final" hidden={finalHidden}>
         Solution: Calculated GCD is <GCD>{items[items.length - 1].gcd}</GCD> (
         {totalSquares} squares)
