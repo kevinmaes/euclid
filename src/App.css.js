@@ -49,13 +49,6 @@ export const ErrorMsg = styled.span`
   display: inline-block;
 `;
 
-export const Image = styled.img`
-  position: absolute;
-  transform: translate(-380px, -80px);
-  opacity: 0.1;
-  pointer-events: none;
-`;
-
 export const StepFrame = styled.div`
   position: absolute;
   top: 0;
