@@ -171,6 +171,7 @@ class App extends Component {
             <StepFrame style={{ position: 'absolute', top: 0, left: 0 }}>
               {this.renderStep(steps, 0, orientation, currentStepIndex)}
               <SolutionGrid
+                dimensions={{ width: inputs[0], height: inputs[1] }}
                 totalSquares={totalSquares}
                 gcd={gcd}
                 currentStepIndex={currentStepIndex}

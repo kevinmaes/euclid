@@ -10,12 +10,14 @@ export const Grid = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: wrap;
 `;
 
 export const GridTile = styled.div`
+  position: absolute;
+  left: ${props => props.xPos}px;
+  top: ${props => props.yPos}px;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   border: 1px dotted #68677a;
+  box-sizing: border-box;
 `;
