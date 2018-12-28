@@ -207,7 +207,6 @@ class App extends Component {
             height={inputs[1]}
             minConstraints={[100, 100]}
             maxConstraints={[1000, 1000]}
-            draggableOpts={{ grid: [25, 25] }}
             onResizeStop={(_, data) => {
               console.log(data.size);
               this.resize(data.size);
