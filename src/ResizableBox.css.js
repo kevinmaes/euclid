@@ -26,7 +26,6 @@ export const StyledResizableBox = styled(ResizableBox)`
     padding: 0 3px 3px 0;
     background-repeat: no-repeat;
     background-origin: content-box;
-    box-sizing: border-box;
     cursor: se-resize;
   }
 `;

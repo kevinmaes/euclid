@@ -11,13 +11,12 @@ import {
   Message,
   StepFrame,
   StepWrapper,
-  GridTile,
-  Grid,
   ErrorMsg,
 } from './App.css';
 import { StyledResizableBox } from './ResizableBox.css';
 import Step from './Step';
 import StepLog from './StepLog';
+import SolutionGrid from './SolutionGrid';
 import descending from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
 
@@ -129,19 +128,6 @@ class App extends Component {
     );
   };
 
-  renderGrid = (totalSquares, gcd, currentStepIndex, totalSteps) => {
-    const hidden = currentStepIndex < totalSteps + 1;
-    const children = new Array(totalSquares);
-    children.fill({});
-    return (
-      <Grid hidden={hidden}>
-        {children.slice(0, 100).map((child, i) => (
-          <GridTile key={i} size={gcd} />
-        ))}{' '}
-      </Grid>
-    );
-  };
-
   renderInputForm = inputs => (
     <Form>
       <Label htmlFor="width">W</Label>
@@ -159,8 +145,6 @@ class App extends Component {
 
     const { gcd, totalSquares } = calcGCDSquares(steps, inputs);
 
-    console.log('inputs', inputs);
-
     return (
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
@@ -176,20 +160,20 @@ class App extends Component {
             minConstraints={[100, 100]}
             maxConstraints={[1000, 1000]}
             onResizeStart={this.reset}
-            onResizeStop={(_, data) => {
-              console.log(data.size);
-              this.resize(data.size);
+            onResizeStop={(_, { size }) => {
+              this.resize(size);
             }}
             onClick={this.onClick}
           >
             <StepFrame style={{ position: 'absolute', top: 0, left: 0 }}>
               {this.renderStep(steps, 0, orientation, currentStepIndex)}
-              {this.renderGrid(
-                totalSquares,
-                gcd,
-                currentStepIndex,
-                steps.length
-              )}
+              <SolutionGrid
+                dimensions={{ width: inputs[0], height: inputs[1] }}
+                totalSquares={totalSquares}
+                gcd={gcd}
+                currentStepIndex={currentStepIndex}
+                totalSteps={steps.length}
+              />
             </StepFrame>
           </StyledResizableBox>
         ) : (
