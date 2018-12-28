@@ -16,7 +16,6 @@ import {
   GridTile,
   Grid,
   ErrorMsg,
-  Image,
 } from './App.css';
 import Step from './Step';
 import StepLog from './StepLog';
