@@ -63,7 +63,6 @@ export const StepFrame = styled.div`
 `;
 
 export const Frame = styled.div`
-  /* margin: 30px 0 15px 0; */
   position: absolute;
   top: 0;
   left: 0;
@@ -77,9 +76,7 @@ export const Frame = styled.div`
   cursor: pointer;
   flex-wrap: wrap;
   background: rgba(222, 191, 108, 0.8);
-  /* position: relative; */
   box-sizing: content-box;
-  /* box-shadow: 0 2px 6px #b0bac5; */
 `;
 
 export const StepWrapper = styled.div`
@@ -101,12 +98,10 @@ export const Grid = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  /* border-width: 3px; */
 `;
 
 export const GridTile = styled.div`
   width: ${props => props.size}px;
   height: ${props => props.size}px;
   border: 1px dotted #68677a;
-  /* background-color: green; */
 `;
