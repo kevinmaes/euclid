@@ -131,7 +131,9 @@ class App extends Component {
     children.fill({});
     return (
       <Grid hidden={hidden}>
-        {children.map((child, i) => <GridTile key={i} size={gcd} />)}{' '}
+        {children.map((child, i) => (
+          <GridTile key={i} size={gcd} />
+        ))}{' '}
       </Grid>
     );
   };
@@ -175,7 +177,7 @@ class App extends Component {
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
         <Message width={inputs[0]}>
-          Click rectangle to step through the algorithm
+          Step through the algorithm by clicking above.
         </Message>
         <StepLog
           items={steps}
