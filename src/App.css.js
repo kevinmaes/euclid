@@ -56,6 +56,12 @@ export const Image = styled.img`
   pointer-events: none;
 `;
 
+export const StepFrame = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
 export const Frame = styled.div`
   /* margin: 30px 0 15px 0; */
   position: absolute;

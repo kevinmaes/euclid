@@ -11,7 +11,7 @@ import {
   Label,
   Input,
   Message,
-  Frame,
+  StepFrame,
   StepWrapper,
   GridTile,
   Grid,
@@ -26,14 +26,15 @@ import { gcdSteps, calcGCDSquares } from './utils/gcd';
 const StyledResizableBox = styled(ResizableBox)`
   display: inline-block;
   background: #ccc;
-  border: 1px solid black;
+  border: 1px solid gray;
   text-align: center;
   padding: 10px;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
   margin: 20px;
+  cursor: pointer;
 
   position: relative;
 
@@ -92,12 +93,11 @@ class App extends Component {
     const { inputs } = this.state;
     const newInputs = [...inputs];
     newInputs[index] = value || 0;
-    const steps = this.getSteps(inputs);
 
-    this.setState({ inputs: newInputs, steps, currentStepIndex: 0 });
+    this.resize({ width: newInputs[0], height: newInputs[1] });
   };
 
-  onResize = ({ width, height }) => {
+  resize = ({ width, height }) => {
     const inputs = [width, height];
     const steps = this.getSteps(inputs);
     this.setState({ inputs, steps, currentStepIndex: 0 });
@@ -205,13 +205,14 @@ class App extends Component {
             className="box"
             width={inputs[0]}
             height={inputs[1]}
-            draggableOpts={{ grid: [25, 25] }}
+            // draggableOpts={{ grid: [10, 10] }}
             onResizeStop={(_, data) => {
               console.log(data.size);
-              this.onResize(data.size);
+              this.resize(data.size);
             }}
+            onClick={this.onClick}
           >
-            <div onClick={this.onClick}>
+            <StepFrame style={{ position: 'absolute', top: 0, left: 0 }}>
               {this.renderStep(steps, 0, orientation, currentStepIndex)}
               {/* {this.renderGrid(
                 totalSquares,
@@ -219,7 +220,7 @@ class App extends Component {
                 currentStepIndex,
                 steps.length
               )} */}
-            </div>
+            </StepFrame>
             {/* <Frame
               width={inputs[0]}
               height={inputs[1]}
