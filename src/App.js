@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { number } from 'prop-types';
 
 import {
   Wrapper,
@@ -29,6 +30,11 @@ const LANDSCAPE = 'row';
 const PORTRAIT = 'column';
 
 class App extends Component {
+  static propTypes = {
+    maxWidth: number,
+    maxHeight: number,
+  };
+
   constructor(props) {
     super(props);
     const { width, height } = props;

@@ -2,6 +2,15 @@ import React from 'react';
 
 import { List, ListItem, GCD } from './StepLog.css';
 
+const displayLogItem = ({ divisor, sm, remainder }) => {
+  let logTxt = `Divided ${divisor}x by ${sm}`;
+
+  if (remainder) {
+    logTxt = `${logTxt} (${remainder} left)`;
+  }
+  return logTxt;
+};
+
 const StepLog = ({ items, currentStepIndex, totalSquares }) => {
   const finalHidden = currentStepIndex <= items.length;
   console.log('currentIndex', currentStepIndex);
@@ -14,15 +23,13 @@ const StepLog = ({ items, currentStepIndex, totalSquares }) => {
         (item, i) =>
           !console.log(currentStepIndex, i, currentStepIndex <= i) && (
             <ListItem key={item.sm} hidden={currentStepIndex <= i}>
-              Divided {item.divisor}x by {item.sm}
+              {displayLogItem(item)}
             </ListItem>
           )
       )}
       <ListItem key="final" hidden={finalHidden}>
-        Calculated GCD is <GCD>{items[items.length - 1].gcd}</GCD> ({
-          totalSquares
-        }{' '}
-        squares)
+        Calculated GCD is <GCD>{items[items.length - 1].gcd}</GCD> (
+        {totalSquares} squares)
       </ListItem>
     </List>
   );
