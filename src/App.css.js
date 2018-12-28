@@ -49,15 +49,19 @@ export const ErrorMsg = styled.span`
   display: inline-block;
 `;
 
-export const Image = styled.img`
+export const StepFrame = styled.div`
   position: absolute;
-  transform: translate(-380px, -80px);
-  opacity: 0.1;
-  pointer-events: none;
+  top: 0;
+  left: 0;
 `;
 
 export const Frame = styled.div`
-  margin: 30px 0 15px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   display: flex;
@@ -65,9 +69,7 @@ export const Frame = styled.div`
   cursor: pointer;
   flex-wrap: wrap;
   background: rgba(222, 191, 108, 0.8);
-  position: relative;
   box-sizing: content-box;
-  box-shadow: 0 2px 6px #b0bac5;
 `;
 
 export const StepWrapper = styled.div`
@@ -83,6 +85,8 @@ export const Grid = styled.div`
   ${fade};
 
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;

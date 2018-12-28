@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { number } from 'prop-types';
+import { ResizableBox } from 'react-resizable';
+import styled from 'react-emotion';
 
 import {
   Wrapper,
@@ -9,17 +11,48 @@ import {
   Label,
   Input,
   Message,
-  Frame,
+  StepFrame,
   StepWrapper,
   GridTile,
   Grid,
   ErrorMsg,
-  Image,
 } from './App.css';
 import Step from './Step';
 import StepLog from './StepLog';
 import descending from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
+
+const StyledResizableBox = styled(ResizableBox)`
+  display: inline-block;
+  background: #ccc;
+  border: 1px solid gray;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  margin: 20px;
+  cursor: pointer;
+
+  position: relative;
+
+  & .react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/P…4yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=);
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: se-resize;
+  }
+`;
+
 const calcGCDSteps = descending(gcdSteps);
 
 // Functional setState for input values.
@@ -52,6 +85,10 @@ class App extends Component {
     };
   }
 
+  reset = () => {
+    this.setState({ currentStepIndex: -1 });
+  };
+
   onInputChange = event => {
     const index = event.target.id === 'width' ? 0 : 1;
     const value = parseInt(event.target.value, 10);
@@ -60,10 +97,13 @@ class App extends Component {
     const newInputs = [...inputs];
     newInputs[index] = value || 0;
 
-    this.setState(setInputs(newInputs));
-    const steps = this.getSteps(newInputs);
-    this.setState({ steps });
-    this.setState({ currentStepIndex: 0 });
+    this.resize({ width: newInputs[0], height: newInputs[1] });
+  };
+
+  resize = ({ width, height }) => {
+    const inputs = [width, height];
+    const steps = this.getSteps(inputs);
+    this.setState({ inputs, steps, currentStepIndex: -1 });
   };
 
   getSteps = inputs =>
@@ -130,7 +170,7 @@ class App extends Component {
     children.fill({});
     return (
       <Grid hidden={hidden}>
-        {children.map((child, i) => (
+        {children.slice(0, 100).map((child, i) => (
           <GridTile key={i} size={gcd} />
         ))}{' '}
       </Grid>
@@ -154,6 +194,8 @@ class App extends Component {
 
     const { gcd, totalSquares } = calcGCDSquares(steps, inputs);
 
+    console.log('inputs', inputs);
+
     return (
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
@@ -162,15 +204,29 @@ class App extends Component {
         </Instructions>
         {this.renderInputForm(inputs)}
         {this.hasBothInputs(inputs) ? (
-          <Frame
+          <StyledResizableBox
+            className="box"
             width={inputs[0]}
             height={inputs[1]}
-            flexDirection={orientation}
+            minConstraints={[100, 100]}
+            maxConstraints={[1000, 1000]}
+            onResizeStart={this.reset}
+            onResizeStop={(_, data) => {
+              console.log(data.size);
+              this.resize(data.size);
+            }}
             onClick={this.onClick}
           >
-            {this.renderStep(steps, 0, orientation, currentStepIndex)}
-            {this.renderGrid(totalSquares, gcd, currentStepIndex, steps.length)}
-          </Frame>
+            <StepFrame style={{ position: 'absolute', top: 0, left: 0 }}>
+              {this.renderStep(steps, 0, orientation, currentStepIndex)}
+              {this.renderGrid(
+                totalSquares,
+                gcd,
+                currentStepIndex,
+                steps.length
+              )}
+            </StepFrame>
+          </StyledResizableBox>
         ) : (
           <ErrorMsg>Width and Height are required!</ErrorMsg>
         )}
