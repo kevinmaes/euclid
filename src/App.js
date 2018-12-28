@@ -145,8 +145,6 @@ class App extends Component {
 
     const { gcd, totalSquares } = calcGCDSquares(steps, inputs);
 
-    console.log('inputs', inputs);
-
     return (
       <Wrapper>
         <Title>Euclidean Algorithm</Title>
@@ -162,9 +160,8 @@ class App extends Component {
             minConstraints={[100, 100]}
             maxConstraints={[1000, 1000]}
             onResizeStart={this.reset}
-            onResizeStop={(_, data) => {
-              console.log(data.size);
-              this.resize(data.size);
+            onResizeStop={(_, { size }) => {
+              this.resize(size);
             }}
             onClick={this.onClick}
           >

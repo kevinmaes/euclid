@@ -13,7 +13,6 @@ const displayLogItem = ({ divisor, sm, remainder }, index) => {
 
 const StepLog = ({ items, currentStepIndex, totalSquares }) => {
   const finalHidden = currentStepIndex <= items.length;
-  console.log('currentIndex', currentStepIndex);
   return (
     <List>
       <ListItem key="start">
