@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMachine } from '@xstate/react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -11,8 +12,11 @@ import {
 import { StepLog } from './StepLog';
 import { descending } from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
+import { machine } from './machine';
 
 function App() {
+  const [state, send] = useMachine(machine);
+
   const calcGCDSteps = descending(gcdSteps);
 
   const hasBothInputs = (inputs: number[]) => inputs[0] && inputs[1];
