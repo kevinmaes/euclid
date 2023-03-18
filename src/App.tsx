@@ -13,8 +13,6 @@ import { descending } from './utils/descending';
 import { gcdSteps, calcGCDSquares } from './utils/gcd';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const calcGCDSteps = descending(gcdSteps);
 
   const hasBothInputs = (inputs: number[]) => inputs[0] && inputs[1];
